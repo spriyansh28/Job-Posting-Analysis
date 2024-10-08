@@ -43,28 +43,28 @@ def scrape_job_details():
     for card in job_cards:
         try:
             # Extract job title from the main page
-            job_title = card.find_element(By.CLASS_NAME, 'job-title-class').text  # Update with correct class name
+            job_title = card.find_element(By.CLASS_NAME, 'title').text  
             job_titles.append(job_title)
         except:
             job_titles.append('N/A')
 
         try:
             # Extract company name from the main page
-            company_name = card.find_element(By.CLASS_NAME, 'company-name-class').text  # Update with correct class name
+            company_name = card.find_element(By.CLASS_NAME, 'comp-name').text  
             company_names.append(company_name)
         except:
             company_names.append('N/A')
 
         try:
             # Extract job location from the main page
-            location = card.find_element(By.CLASS_NAME, 'location-class').text  # Update with correct class name
+            location = card.find_element(By.CLASS_NAME, 'locwdth').text  
             locations.append(location)
         except:
             locations.append('N/A')
 
         try:
             # Extract experience required from the main page
-            experience = card.find_element(By.CLASS_NAME, 'experience-class').text  # Update with correct class name
+            experience = card.find_element(By.CLASS_NAME, 'expwdth').text  
             experience_required.append(experience)
         except:
             experience_required.append('N/A')
@@ -124,19 +124,18 @@ def scrape_job_details():
 
 def go_to_next_page():
     try:
-        next_button = driver.find_element(By.XPATH, "//a[@class='next-page-class']")  # Update with correct class for the "Next" button
+        next_button = driver.find_element(By.XPATH, "//a[@class='styles_btn-secondary__2AsIP']")  
         next_button.click()
-        time.sleep(3)  # Wait for the next page to load
+        time.sleep(10)  
         return True
     except:
         print("No more pages available or failed to click 'Next'.")
         return False
 
 while True:
-    auto_scroll()  # Auto scroll to load more job cards
-    scrape_job_details()  # Scrape job details from the current page
+    auto_scroll()  
+    scrape_job_details()
     
-    # Go to the next page, break the loop if no more pages are available
     if not go_to_next_page():
         break
 
